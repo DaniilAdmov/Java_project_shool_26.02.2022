@@ -16,18 +16,14 @@ public class CollectionUtilsImpl implements CollectionUtils {
     @Override
     public Collection<Integer> intersection(Collection<Integer> a, Collection<Integer> b) throws NullPointerException {
         ArrayList<Integer> intersection = new ArrayList<>();
-        for (int numbersA : a) {
-            for (int numbersB : b) {
-                if (numbersA == numbersB) {
-                    intersection.add(numbersA);
-                }
+        for (int numbersB : b) {
+            if (a.contains(numbersB)) {
+                intersection.add(numbersB);
             }
         }
-        for (int numbersB : b) {
-            for (int numbersA : a) {
-                if (numbersA == numbersB) {
-                    intersection.add(numbersB);
-                }
+        for (int numbersA : a) {
+            if (b.contains(numbersA)) {
+                intersection.add(numbersA);
             }
         }
         return intersection;
@@ -45,10 +41,8 @@ public class CollectionUtilsImpl implements CollectionUtils {
     public Set<Integer> intersectionWithoutDuplicate(Collection<Integer> a, Collection<Integer> b) throws NullPointerException {
         HashSet<Integer> intersectionWithoutDuplicate = new HashSet<>();
         for (int numbersA : a) {
-            for (int numbersB : b) {
-                if (numbersA == numbersB) {
-                    intersectionWithoutDuplicate.add(numbersA);
-                }
+            if (b.contains(numbersA)) {
+                intersectionWithoutDuplicate.add(numbersA);
             }
         }
         return intersectionWithoutDuplicate;
@@ -57,17 +51,13 @@ public class CollectionUtilsImpl implements CollectionUtils {
     @Override
     public Collection<Integer> difference(Collection<Integer> a, Collection<Integer> b) throws NullPointerException {
         HashSet<Integer> difference = new HashSet<>();
-        HashSet<Integer> set = new HashSet<>();
-        set.addAll(a);
-        set.addAll(b);
+        difference.addAll(a);
+        difference.addAll(b);
         for (int numbersA : a) {
-            for (int numbersB : b) {
-                if (numbersA == numbersB) {
-                    set.remove(numbersA);
-                }
+            if (b.contains(numbersA)) {
+                difference.remove(numbersA);
             }
         }
-        difference.addAll(set);
         return difference;
     }
 }
